@@ -1,0 +1,17 @@
+.\output\sensor.o: ..\user\Sensor\Sensor.c
+.\output\sensor.o: ..\user\Sensor\Sensor.h
+.\output\sensor.o: ..\user\sys\sys.h
+.\output\sensor.o: ..\user\stm32f10x.h
+.\output\sensor.o: ..\CMSIS\CM3\CoreSupport\core_cm3.h
+.\output\sensor.o: D:\MDK524\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\sensor.o: ..\user\system_stm32f10x.h
+.\output\sensor.o: ..\user\stm32f10x_conf.h
+.\output\sensor.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_can.h
+.\output\sensor.o: ..\user\stm32f10x.h
+.\output\sensor.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\output\sensor.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\output\sensor.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h
+.\output\sensor.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\output\sensor.o: ..\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\output\sensor.o: D:\MDK524\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\sensor.o: ..\user\LED\led.h

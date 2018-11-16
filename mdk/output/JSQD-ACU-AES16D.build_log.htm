@@ -1,0 +1,86 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.24.2.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: asd ASUS, asd, LIC=JDARA-1HKCU-PFWIX-H8FCG-4QU6X-1G0UX
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.24.1
+Toolchain Path:  D:\MDK524\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 5 (build 528)
+Assembler:       Armasm.exe V5.06 update 5 (build 528)
+Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
+Library Manager: ArmAr.exe V5.06 update 5 (build 528)
+Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
+CPU DLL:         SARMCM3.DLL V5.24.1
+Dialog DLL:      DCM.DLL V1.16.0.0
+Target DLL:      Segger\JL2CM3.dll V2.99.26.0
+Dialog DLL:      TCM.DLL V1.32.0.0
+ 
+<h2>Project:</h2>
+F:\JeSooWork\立库项目\立库项目\0726立库\上海交大立库版本\sjtuliku\mdk\JSQD-ACU.uvprojx
+Project File Date:  09/06/2018
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\MDK524\ARM\ARMCC\Bin'
+Build target 'JSQD-ACU'
+compiling Beep.c...
+compiling led.c...
+compiling Key.c...
+..\user\Key\Key.c(126): warning:  #177-D: variable "test"  was declared but never referenced
+  	u8 test;
+..\user\Key\Key.c: 1 warning, 0 errors
+compiling main.c...
+compiling Sys_Init.c...
+compiling sys.c...
+compiling timer.c...
+compiling pwm.c...
+compiling LCD_RS232.c...
+compiling Action_Status.c...
+..\user\actionstatus\Action_Status.c(1970): warning:  #940-D: missing return statement at end of non-void function "Axis_X_Demarcate" 
+  }
+..\user\actionstatus\Action_Status.c: 1 warning, 0 errors
+compiling network.c...
+compiling i2c.c...
+..\user\i2c-pcf8574\i2c.c(3): warning:  #47-D: incompatible redefinition of macro "TRUE"  (declared at line 9 of "..\user\sys\sys.h")
+  #define TRUE 1
+..\user\i2c-pcf8574\i2c.c: 1 warning, 0 errors
+compiling 24c256.c...
+compiling Laser.c...
+..\user\Laser\Laser.c(93): warning:  #177-D: variable "i"  was declared but never referenced
+  		u8 i;
+..\user\Laser\Laser.c: 1 warning, 0 errors
+compiling Auto_Locate.c...
+linking...
+Program Size: Code=37572 RO-data=344 RW-data=392 ZI-data=4544  
+FromELF: creating hex file...
+".\output\JSQD-ACU-AES16D.axf" - 0 Error(s), 4 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.0.1.pack
+                ARM.CMSIS.5.0.1
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.0.1
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.2.0.pack
+                Keil.STM32F1xx_DFP.2.2.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_JSQD-ACU
+  D:\MDK524\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include
+  D:\MDK524\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.0.1
+Build Time Elapsed:  00:00:05
+</pre>
+</body>
+</html>

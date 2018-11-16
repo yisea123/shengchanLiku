@@ -1,0 +1,16 @@
+.\output\input.o: ..\user\Input\input.c
+.\output\input.o: ..\user\Input\input.h
+.\output\input.o: ..\user\sys\sys.h
+.\output\input.o: ..\user\stm32f10x.h
+.\output\input.o: ..\CMSIS\CM3\CoreSupport\core_cm3.h
+.\output\input.o: D:\MDK524\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\input.o: ..\user\system_stm32f10x.h
+.\output\input.o: ..\user\stm32f10x_conf.h
+.\output\input.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_can.h
+.\output\input.o: ..\user\stm32f10x.h
+.\output\input.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\output\input.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\output\input.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h
+.\output\input.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\output\input.o: ..\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\output\input.o: D:\MDK524\ARM\ARMCC\Bin\..\include\stdbool.h
