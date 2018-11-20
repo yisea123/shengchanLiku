@@ -516,7 +516,7 @@ void REC_UART2_Analyze(unsigned char right_num)//´®¿ÚÊıÎö¡¾SCREEN-TO-ACU¡¿
         case 0x02:     //ÉèÖÃXÖá×ø±ê
 				{
 					X_Row = Uart2Buff[right_num].ComData[4];
-					if(X_Row>=9)
+					if(X_Row>=12)
 					{
 						return;
 					}

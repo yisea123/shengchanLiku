@@ -173,67 +173,67 @@ void Key_Deal()
 	if(KEY6_flag == 1)
 	{
 		KEY6_flag = 0;
-		StepMotorCtrl_Pulse(5,AXIS_Y,Y_DIR_LEFT);
+//		StepMotorCtrl_Pulse(5,AXIS_Y,Y_DIR_LEFT);
 		Beep(50,50,1);      //按键蜂鸣一声		
-//						Change_X_Zero_Pluse.X_Zero_Pluse_Data = 60;
-//						I2C_PageWrite(Change_X_Zero_Pluse.X_Zero_Pluse_CharData,4,1);
-//						X_Zero_Pluse = Change_X_Zero_Pluse.X_Zero_Pluse_Data;
-//						
-//						Change_X_MPP.X_MPP_Data = 0.4400;
-//		        I2C_BufferWrite(Change_X_MPP.X_MPP_CharData,8,10);
-//		        X_MPP = Change_X_MPP.X_MPP_Data;
-//						
-//						Change_First_Goods_Height.First_Goods_Height_Data = 47;
-//						I2C_BufferWrite(Change_First_Goods_Height.First_Goods_Height_CharData,4,25);
-//						First_Goods_Height = Change_First_Goods_Height.First_Goods_Height_Data;
-//						
-//						Change_Z_MPP.Z_MPP_Data = 0.3420;
-//						I2C_BufferWrite(Change_Z_MPP.Z_MPP_CharData,8,35);
-//						Z_MPP = Change_Z_MPP.Z_MPP_Data;
-//						
-//						Change_Plat_Axis_Z.Plat_Axis_Z_Data = 227;
-//						I2C_BufferWrite(Change_Plat_Axis_Z.Plat_Axis_Z_CharData,4,50);
-//						Plat_Axis_Z = Change_Plat_Axis_Z.Plat_Axis_Z_Data;
-//						
-//						Change_Plat_Axis_X.Plat_Axis_X_Data = 0;
-//						I2C_BufferWrite(Change_Plat_Axis_X.Plat_Axis_X_CharData,4,60);
-//						Plat_Axis_X = Change_Plat_Axis_X.Plat_Axis_X_Data;
-//						
-//						Change_Y_RightZero_Pluse.Y_RightZero_Pluse_Data = 70;
-//						I2C_BufferWrite(Change_Y_RightZero_Pluse.Y_RightZero_Pluse_CharData,4,70);
-//						Y_RightZero_Pluse = Change_Y_RightZero_Pluse.Y_RightZero_Pluse_Data;
+						Change_X_Zero_Pluse.X_Zero_Pluse_Data = 60;
+						I2C_PageWrite(Change_X_Zero_Pluse.X_Zero_Pluse_CharData,4,1);
+						X_Zero_Pluse = Change_X_Zero_Pluse.X_Zero_Pluse_Data;
+						
+						Change_X_MPP.X_MPP_Data = 0.4400;
+		        I2C_BufferWrite(Change_X_MPP.X_MPP_CharData,8,10);
+		        X_MPP = Change_X_MPP.X_MPP_Data;
+						
+						Change_First_Goods_Height.First_Goods_Height_Data = 47;
+						I2C_BufferWrite(Change_First_Goods_Height.First_Goods_Height_CharData,4,25);
+						First_Goods_Height = Change_First_Goods_Height.First_Goods_Height_Data;
+						
+						Change_Z_MPP.Z_MPP_Data = 0.3420;
+						I2C_BufferWrite(Change_Z_MPP.Z_MPP_CharData,8,35);
+						Z_MPP = Change_Z_MPP.Z_MPP_Data;
+						
+						Change_Plat_Axis_Z.Plat_Axis_Z_Data = 227;
+						I2C_BufferWrite(Change_Plat_Axis_Z.Plat_Axis_Z_CharData,4,50);
+						Plat_Axis_Z = Change_Plat_Axis_Z.Plat_Axis_Z_Data;
+						
+						Change_Plat_Axis_X.Plat_Axis_X_Data = 0;
+						I2C_BufferWrite(Change_Plat_Axis_X.Plat_Axis_X_CharData,4,60);
+						Plat_Axis_X = Change_Plat_Axis_X.Plat_Axis_X_Data;
+						
+						Change_Y_RightZero_Pluse.Y_RightZero_Pluse_Data = 70;
+						I2C_BufferWrite(Change_Y_RightZero_Pluse.Y_RightZero_Pluse_CharData,4,70);
+						Y_RightZero_Pluse = Change_Y_RightZero_Pluse.Y_RightZero_Pluse_Data;
 
-//						Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_Data = 30;
-//						I2C_BufferWrite(Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_CharData,4,80);
-//						Y_LeftZero_Pluse = Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_Data;
+						Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_Data = 30;
+						I2C_BufferWrite(Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_CharData,4,80);
+						Y_LeftZero_Pluse = Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_Data;
 
-//						Change_Y_LeftTrayPluse.Y_LeftTrayPluse_Data = 2310;
-//						I2C_BufferWrite(Change_Y_LeftTrayPluse.Y_LeftTrayPluse_CharData,4,90);
-//						Y_LeftTrayPluse = Change_Y_LeftTrayPluse.Y_LeftTrayPluse_Data;
+						Change_Y_LeftTrayPluse.Y_LeftTrayPluse_Data = 2310;
+						I2C_BufferWrite(Change_Y_LeftTrayPluse.Y_LeftTrayPluse_CharData,4,90);
+						Y_LeftTrayPluse = Change_Y_LeftTrayPluse.Y_LeftTrayPluse_Data;
 
-//						Change_Y_LeftLim_MorePluse.Y_LeftLim_MorePluse_Data = 2200;
-//						I2C_BufferWrite(Change_Y_LeftLim_MorePluse.Y_LeftLim_MorePluse_CharData,4,100);
-//						Y_LeftLim_MorePluse = Change_Y_LeftLim_MorePluse.Y_LeftLim_MorePluse_Data;
+						Change_Y_LeftLim_MorePluse.Y_LeftLim_MorePluse_Data = 2200;
+						I2C_BufferWrite(Change_Y_LeftLim_MorePluse.Y_LeftLim_MorePluse_CharData,4,100);
+						Y_LeftLim_MorePluse = Change_Y_LeftLim_MorePluse.Y_LeftLim_MorePluse_Data;
 
-//						Change_Y_LeftLim_LessPluse.Y_LeftLim_LessPluse_Data = 2180;//修正
-//						I2C_BufferWrite(Change_Y_LeftLim_LessPluse.Y_LeftLim_LessPluse_CharData,4,110);
-//						Y_LeftLim_LessPluse = Change_Y_LeftLim_LessPluse.Y_LeftLim_LessPluse_Data;
+						Change_Y_LeftLim_LessPluse.Y_LeftLim_LessPluse_Data = 2180;//修正
+						I2C_BufferWrite(Change_Y_LeftLim_LessPluse.Y_LeftLim_LessPluse_CharData,4,110);
+						Y_LeftLim_LessPluse = Change_Y_LeftLim_LessPluse.Y_LeftLim_LessPluse_Data;
 
-//						Change_Y_RightLim_MorePluse.Y_RightLim_MorePluse_Data = 2235;//修正
-//						I2C_BufferWrite(Change_Y_RightLim_MorePluse.Y_RightLim_MorePluse_CharData,4,120);
-//						Y_RightLim_MorePluse = Change_Y_RightLim_MorePluse.Y_RightLim_MorePluse_Data;
+						Change_Y_RightLim_MorePluse.Y_RightLim_MorePluse_Data = 2235;//修正
+						I2C_BufferWrite(Change_Y_RightLim_MorePluse.Y_RightLim_MorePluse_CharData,4,120);
+						Y_RightLim_MorePluse = Change_Y_RightLim_MorePluse.Y_RightLim_MorePluse_Data;
 
-//						Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_Data = 2200;//修正
-//						I2C_BufferWrite(Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_CharData,4,130);
-//						Y_RightLim_LessPluse = Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_Data;
+						Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_Data = 2200;//修正
+						I2C_BufferWrite(Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_CharData,4,130);
+						Y_RightLim_LessPluse = Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_Data;
 
-//						Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_Data = 100;
-//						I2C_BufferWrite(Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_CharData,4,140);
-//						AxisZ_UpDown_Pluse = Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_Data;
+						Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_Data = 100;
+						I2C_BufferWrite(Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_CharData,4,140);
+						AxisZ_UpDown_Pluse = Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_Data;
 
-//						Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_Data = 170;
-//						I2C_BufferWrite(Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_CharData,4,150);
-//						AxisZ_UpDownMore_Pluse = Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_Data;
+						Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_Data = 170;
+						I2C_BufferWrite(Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_CharData,4,150);
+						AxisZ_UpDownMore_Pluse = Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_Data;
 						
 	}
 }

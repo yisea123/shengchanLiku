@@ -734,7 +734,7 @@ void Axis_Move_Alone(u8 Axis ,bool Dir)//工程师模式单点调节
 				{
 					Beep(50,50,1);
 					return ;
-				}
+				} 
 				Axis_X.Dir = Dir;
 				DIR_X = Axis_X.Dir;
 				Axis_X.NowPulse = 0;

@@ -445,13 +445,13 @@ void Axis_Ultra_Limit()
 			Beep(50,50,1);
 		}
 /*************X轴后限位极限位**************/		
-		if(Axis_X_BackwardLim_Sensor == 0&&Axis_X.Dir == X_DIR_FRONT)//
-		{
-			Axis_X.InCtrl_Flag = 0;
-			TIM_Cmd(TIM2, DISABLE);
-			Beep(50,50,5);
-			//Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Fifth_Stage,0);//托盘放箱结束，返回报文
-		}
+//		if(Axis_X_BackwardLim_Sensor == 0&&Axis_X.Dir == X_DIR_FRONT)//
+//		{
+//			Axis_X.InCtrl_Flag = 0;
+//			TIM_Cmd(TIM2, DISABLE);
+//			Beep(50,50,5);
+//			//Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Fifth_Stage,0);//托盘放箱结束，返回报文
+//		}
 	}
 
 }
