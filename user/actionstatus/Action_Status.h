@@ -9,7 +9,7 @@
 extern u32 Plat_Axis_Z;
 extern u32 Plat_Axis_X;
 #define AxisZ_Float_Disance				15//货架浮动距离，单位mm
-#define AxisZ_PutBoxFloat_Disance 35		//取箱回来时，托盘位于托架上方的距离单位Mm
+#define AxisZ_PutBoxFloat_Disance 40		//取箱回来时，托盘位于托架上方的距离单位Mm
 //#define AxisZ_UpDown_Pluse				110//托盘上升下降脉冲数
 //#define AxisZ_UpDownMore_Pluse		190//托盘上升下降脉冲数
 extern u32 AxisZ_UpDown_Pluse;

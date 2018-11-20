@@ -36,8 +36,8 @@ extern TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 #define PWM_PCS       23   //PWMÆµÂÊ=72000000/(PCS+1)*(ARR+1) 
 #define Z_Acc_Time_SL 50//³¬µÍËÙÄ£Ê½¼ÓËÙÊ±¼ä
 #define Z_Acc_Time_L  200//µÍËÙÄ£Ê½¼ÓËÙÊ±¼ä
-#define Z_Acc_Time_M  1000//ÖĞËÙÄ£Ê½¼ÓËÙÊ±¼ä
-#define Z_Acc_Time_H	2000//¸ßËÙÄ£Ê½¼ÓËÙÊ±¼ä
+#define Z_Acc_Time_M  500//ÖĞËÙÄ£Ê½¼ÓËÙÊ±¼ä
+#define Z_Acc_Time_H	800//¸ßËÙÄ£Ê½¼ÓËÙÊ±¼ä
 
 #define X_Acc_Time_L  200//µÍËÙÄ£Ê½¼ÓËÙÊ±¼ä
 #define X_Acc_Time_M  1000//ÖĞËÙÄ£Ê½¼ÓËÙÊ±¼ä
@@ -84,7 +84,7 @@ extern double Z_MPP;
 #define Z_HIGHSPEED_DISTANCE		1500
 #define Z_HORL_PULSE_VALVE_H   	(Z_HIGHSPEED_DISTANCE/Z_MPP)  //¸ßËÙ×ÜÂö³åÊı·§Öµ£¬ÓÃÀ´·Ö±æÊÇ·ñ¸ßËÙĞĞ½ø
 //ÖĞËÙ
-#define Z_SPEED_FREQ_M 					800   //Ä¿±êÆµÂÊ È 
+#define Z_SPEED_FREQ_M 					600   //Ä¿±êÆµÂÊ È 
 #define Z_MIDDLESPEED_DISTANCE	1000
 #define Z_HORL_PULSE_VALVE_M   	(Z_MIDDLESPEED_DISTANCE/Z_MPP)  //ÖĞËÙ×ÜÂö³åÊı·§Öµ£¬ÓÃÀ´·Ö±æÊÇ·ñÖĞËÙĞĞ½ø
 //µÍËÙ
