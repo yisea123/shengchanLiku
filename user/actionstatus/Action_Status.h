@@ -9,11 +9,12 @@
 extern u32 Plat_Axis_Z;
 extern u32 Plat_Axis_X;
 #define AxisZ_Float_Disance				15//货架浮动距离，单位mm
-#define AxisZ_PutBoxFloat_Disance 50		//取箱回来时，托盘位于托架上方的距离单位Mm
+#define AxisZ_PutBoxFloat_Disance 35		//取箱回来时，托盘位于托架上方的距离单位Mm
 //#define AxisZ_UpDown_Pluse				110//托盘上升下降脉冲数
 //#define AxisZ_UpDownMore_Pluse		190//托盘上升下降脉冲数
 extern u32 AxisZ_UpDown_Pluse;
 extern u32 AxisZ_UpDownMore_Pluse;
+#define Addtion_Pluse_On_Tray     80//货物属性与托架属性不一致时，额外行走脉冲数
 #define Tray		1//托盘当前处于托架处
 #define Goods		0//托盘当前处于货物处	
 
@@ -33,8 +34,8 @@ extern u32 First_Goods_Height;
 #define		A_SENSOR PEin(11)	
 #define 	B_SENSOR PEin(6)
 /***********三色灯***************/
-#define 	LED_RED  PCout(0)
-#define 	LED_GRE  PCout(1)
+#define 	LED_RED  PCout(1)
+#define 	LED_GRE  PCout(0)
 #define 	LED_YEL  PCout(3)
 #define 	ON	1
 #define		OFF 0

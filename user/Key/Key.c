@@ -205,7 +205,7 @@ void Key_Deal()
 
 						Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_Data = 30;
 						I2C_BufferWrite(Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_CharData,4,80);
-						Y_LeftZero_Pluse = Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_Data;
+						Y_LeftZero_Pluse = Change_Y_LeftZero_Pluse.Y_LeftZero_Pluse_Data;//95
 
 						Change_Y_LeftTrayPluse.Y_LeftTrayPluse_Data = 2310;
 						I2C_BufferWrite(Change_Y_LeftTrayPluse.Y_LeftTrayPluse_CharData,4,90);

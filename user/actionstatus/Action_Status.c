@@ -219,7 +219,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 			}
 			if(Action.end_flag == 1)
 			{
-				if(Action.PutBox_Cnt>3)
+				if(Action.PutBox_Cnt>6)
 				{
 					Action.PutBox_Cnt = 0;
 					Action.PutBox_Status_Change = 1;
@@ -455,12 +455,12 @@ void Tray_Put_Box(bool Axis_Y_Dir,u32 UpDown_Pluse,bool Tray_Position)//机械手放
 										if(Last_AxisY_Dir == Axis_Y_Dir)
 										{
 											Last_AxisY_Dir=Axis_Y_Dir;
-											StepMotorCtrl_Pulse((Y_LeftLim_LessPluse+50),AXIS_Y,Axis_Y_Dir);	
+											StepMotorCtrl_Pulse((Y_LeftLim_LessPluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 										}								
 										else
 										{
 											Last_AxisY_Dir=Axis_Y_Dir;
-											StepMotorCtrl_Pulse((Y_LeftLim_MorePluse+50),AXIS_Y,Axis_Y_Dir);	
+											StepMotorCtrl_Pulse((Y_LeftLim_MorePluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 										}
 									}
 									else//取箱操作，左边取箱，右边托架还
@@ -468,12 +468,12 @@ void Tray_Put_Box(bool Axis_Y_Dir,u32 UpDown_Pluse,bool Tray_Position)//机械手放
 										if(Last_AxisY_Dir == Axis_Y_Dir)
 										{
 											Last_AxisY_Dir=Axis_Y_Dir;
-											StepMotorCtrl_Pulse((Y_RightLim_LessPluse+50),AXIS_Y,Axis_Y_Dir);	
+											StepMotorCtrl_Pulse((Y_RightLim_LessPluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 										}								
 										else
 										{
 											Last_AxisY_Dir=Axis_Y_Dir;
-											StepMotorCtrl_Pulse((Y_RightLim_MorePluse+50),AXIS_Y,Axis_Y_Dir);	
+											StepMotorCtrl_Pulse((Y_RightLim_MorePluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 										}
 									}
 								}
@@ -603,12 +603,12 @@ void Tray_Get_Box(bool Axis_Y_Dir,u32 UpDown_Pluse,bool Tray_Position)//机械手拿
 								if(Last_AxisY_Dir == Axis_Y_Dir)
 								{
 									Last_AxisY_Dir=Axis_Y_Dir;
-									StepMotorCtrl_Pulse((Y_LeftLim_LessPluse+50),AXIS_Y,Axis_Y_Dir);	
+									StepMotorCtrl_Pulse((Y_LeftLim_LessPluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 								}								
 								else
 								{
 									Last_AxisY_Dir=Axis_Y_Dir;
-									StepMotorCtrl_Pulse((Y_LeftLim_MorePluse+50),AXIS_Y,Axis_Y_Dir);	
+									StepMotorCtrl_Pulse((Y_LeftLim_MorePluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 								}
 							}
 							else//还箱操作，右边托架取箱，左边货架放箱
@@ -616,12 +616,12 @@ void Tray_Get_Box(bool Axis_Y_Dir,u32 UpDown_Pluse,bool Tray_Position)//机械手拿
 								if(Last_AxisY_Dir == Axis_Y_Dir)
 								{
 									Last_AxisY_Dir=Axis_Y_Dir;
-									StepMotorCtrl_Pulse((Y_RightLim_LessPluse+50),AXIS_Y,Axis_Y_Dir);	
+									StepMotorCtrl_Pulse((Y_RightLim_LessPluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 								}								
 								else
 								{
 									Last_AxisY_Dir=Axis_Y_Dir;
-									StepMotorCtrl_Pulse((Y_RightLim_MorePluse+50),AXIS_Y,Axis_Y_Dir);	
+									StepMotorCtrl_Pulse((Y_RightLim_MorePluse+Addtion_Pluse_On_Tray),AXIS_Y,Axis_Y_Dir);	
 								}
 							}
 					}
@@ -1051,7 +1051,7 @@ void Action_Stop(void)
   */
 bool Length_High_LimCtl(void)
 {
-	if((A_HIN+A_LIN+B_LIN+B_HIN)>0)
+	if(AB_HIGHTLENGTH_SENSOR == 0)
 	{
 		LED_RED = ON;
 		LED_GRE = OFF;
