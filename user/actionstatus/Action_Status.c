@@ -237,7 +237,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 		}
 		else if(Action.Put_Box_Stage == 2)//托盘取箱阶段
 		{
-			Tray_Get_Box(!(Action.tray_position>>1),AxisZ_UpDownMore_Pluse,Tray);
+			Tray_Get_Box(!(Action.tray_position>>1),AxisZ_UpDownMore_Pluse+50,Tray);
 			if(Action.end_flag == 1)
 			{
 				/**************后期测试代码************/
