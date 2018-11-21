@@ -72,7 +72,7 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 		}
 		else if(Action.Get_Box_Stage == 2)//机械手拿箱阶段
 		{
-			Tray_Get_Box(!(Action.command&0x01),AxisZ_UpDown_Pluse+10,Goods);
+			Tray_Get_Box(!(Action.command&0x01),((AxisZ_Float_Disance+15)/Z_MPP),Goods);
 			if(Action.end_flag == 1)
 			{				
 				if(Axis_Y.InCtrl_Flag == 0&&(A_SENSOR ==1||B_SENSOR == 1))
@@ -135,7 +135,7 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 		}
 		else if(Action.Get_Box_Stage == 4)//机械手放箱阶段
 		{
-			Tray_Put_Box(!(Action.tray_position>>1),AxisZ_UpDownMore_Pluse,Tray);
+			Tray_Put_Box(!(Action.tray_position>>1),((AxisZ_PutBoxFloat_Disance+6)/Z_MPP),Tray);
 			if(Action.end_flag == 1)
 			{
 				if(Axis_Y.InCtrl_Flag == 0&&(A_SENSOR ==1||B_SENSOR == 1))
@@ -297,7 +297,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 		else if(Action.Put_Box_Stage == 4)//托盘放箱阶段
 		{
 
-			Tray_Put_Box(!(Action.command&0x01),AxisZ_UpDown_Pluse,Goods);
+			Tray_Put_Box(!(Action.command&0x01),((AxisZ_Float_Disance+15)/Z_MPP),Goods);
 			if(Action.end_flag == 1)
 			{
 				
