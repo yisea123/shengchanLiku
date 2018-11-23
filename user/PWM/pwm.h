@@ -93,7 +93,7 @@ extern double Z_MPP;
 #define Z_HORL_PULSE_VALVE_L    (Z_LOWSPEEDDISTANCE/Z_MPP)	//低速总脉冲数阀值，用来分辨是否高速行进
 //超低速用来托举
 #define Z_SPEED_FREQ_SL         120
-#define Z_SLDISTANCE						50
+#define Z_SLDISTANCE						100
 #define Z_HORL_PULSE_VALVE_SL   (Z_SLDISTANCE/Z_MPP)
 
 

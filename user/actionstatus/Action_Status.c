@@ -57,14 +57,12 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 
 					delay_ms(ActionDelay);
 					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
 				}
 				else//XZ运动状态结束，进入下一个阶段
 				{
 					Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Second_Stage,0);//XZ运动动作结束，返回报文
 
 					Action.Get_Box_Stage++;
-					delay_ms(ActionDelay);
 					delay_ms(ActionDelay);
 					delay_ms(ActionDelay);
 				}
@@ -112,7 +110,6 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 					Action.Get_Box_Stage++;
 					delay_ms(ActionDelay);						
 					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
 				}
 			}
 		}
@@ -128,7 +125,6 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 					
 					Action.Get_Box_Stage++;
 					delay_ms(ActionDelay);					
-					delay_ms(ActionDelay);
 					delay_ms(ActionDelay);
 				}
 			}
@@ -231,8 +227,6 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 				
 				Action.Put_Box_Stage++;
 				delay_ms(ActionDelay);				
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
 			}
 		}
 		else if(Action.Put_Box_Stage == 2)//托盘取箱阶段
@@ -267,8 +261,6 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 						
 				Action.Put_Box_Stage++;
 				delay_ms(ActionDelay);						
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
 
 			}
 		}
@@ -289,9 +281,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 				}
 				
 				Action.Put_Box_Stage++;
-				delay_ms(ActionDelay);				
-				delay_ms(ActionDelay);
-					delay_ms(ActionDelay);					
+				delay_ms(ActionDelay);								
 			}
 		}
 		else if(Action.Put_Box_Stage == 4)//托盘放箱阶段
@@ -340,12 +330,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 					delay_ms(ActionDelay);
 					delay_ms(ActionDelay);
 					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
+
 			}
 		}
 		else if(Action.Put_Box_Stage == 6)//偷偷复位状态机
