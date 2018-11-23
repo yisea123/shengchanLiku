@@ -146,7 +146,7 @@ typedef struct
 	u16 Target_Fre;							//目标频率
 	float Jerk_Speed;						//加加速度
 	float Acc_Speed;							//匀速加速度
-  u32 Coordinate;							//当前坐标
+  int32_t Coordinate;							//当前坐标
 	bool Dir;
 	bool	CtrlEnd_Flag;
 	float Stage4_Acc;
@@ -170,6 +170,7 @@ typedef struct
 	u8 PutBox_Cnt;//放箱运行次数，用于偷偷复位
 	u8 GetBox_Cnt;//取箱运行次数，用于偷偷复位
 	u8 PutBox_Status_Change;//偷偷复位用的
+	u8 GetBox_Status_Change;
 	bool end_flag;//嵌套动作结束标志
 	bool Get_Box_Start_Flag;//抓箱指令开始标志
 	bool Put_Box_Start_Flag;//放箱指令开始标志

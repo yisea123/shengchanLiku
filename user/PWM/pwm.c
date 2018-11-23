@@ -127,7 +127,7 @@ void PWM_Init()
   
   NVIC_InitStructure.NVIC_IRQChannel = EXTI1_IRQn ;			//使能按键所在的外部中断通道
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	//抢占优先级2 
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;					//子优先级2 
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x02;					//子优先级2 
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;								//使能外部中断通道
   NVIC_Init(&NVIC_InitStructure);  	  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
   
@@ -163,7 +163,7 @@ void PWM_Init()
   
   NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;			//使能按键所在的外部中断通道
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	//抢占优先级2 
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x02;					//子优先级2 
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;					//子优先级2 
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;								//使能外部中断通道
   NVIC_Init(&NVIC_InitStructure);  	  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
 	
@@ -860,10 +860,11 @@ void EXTI4_IRQHandler(void)//Z轴电机反馈
 		}
 		else 
 		{
-			if(Axis_Z.Coordinate>0)Axis_Z.Coordinate--;
+			Axis_Z.Coordinate--;
 		}
-		if(Axis_Z_Down_Sensor == 0&&Axis_Z.Dir == Z_DIR_BACK)
+		if(Axis_Z_Down_Sensor == 0&&Axis_Z.Dir == Z_DIR_BACK&&Z_ToZeroFlag == 1)
 		{			
+			Z_ToZeroFlag = 0;
 			Axis_Z.InCtrl_Flag = 0;
 			Axis_Z.Coordinate = 0;
 			XYZ_To_Zero.Z_Return_Flag = 1;

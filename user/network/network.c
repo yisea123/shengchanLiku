@@ -223,7 +223,7 @@ void Net_Analysis(void)
 							Action.Tray_GetBox_Status_Change = 1;
 							Action.Target_Z = Action.Target_Z-AxisZ_Float_Disance;							
 							Action.end_flag = 0;
-			
+							Action.GetBox_Cnt++;
 							Beep(50,50,1);
 						}
 					}break;
@@ -250,6 +250,7 @@ void Net_Analysis(void)
 							Action.Tray_GetBox_Status_Change = 1;
 							Action.Target_Z = Action.Target_Z-AxisZ_Float_Disance;
 							Action.end_flag = 0;
+							Action.GetBox_Cnt++;
 						Beep(50,50,1);
 						}
 					}break;
@@ -316,6 +317,7 @@ void Net_Analysis(void)
 							Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Successed,0);//接收消息，返回报文
 							XYZ_To_Zero.Start_Flag = 1;
 							XYZ_To_Zero.Over_Flag = 0;
+							Z_ToZeroFlag = 1;
 							Beep(50,50,1);
 						}
 					}break;

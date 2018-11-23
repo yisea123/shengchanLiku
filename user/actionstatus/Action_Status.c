@@ -5,7 +5,7 @@ u32 Plat_Axis_Z;
 u32 Plat_Axis_X;
 u32 AxisZ_UpDown_Pluse;
 u32 AxisZ_UpDownMore_Pluse;
-
+bool Z_ToZeroFlag = 0;
 TYPEDEF_BACKZERO XYZ_To_Zero=
 {
 	.XYZRET_Status_Change = 0,//XYZRET_Status_Change状态改变标志位
@@ -63,14 +63,13 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 					Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Second_Stage,0);//XZ运动动作结束，返回报文
 
 					Action.Get_Box_Stage++;
-					delay_ms(ActionDelay);
-					delay_ms(ActionDelay);
+					delay_ms(ActionDelay);					
 				}
 			}
 		}
 		else if(Action.Get_Box_Stage == 2)//机械手拿箱阶段
 		{
-			Tray_Get_Box(!(Action.command&0x01),((AxisZ_Float_Disance+15)/Z_MPP),Goods);
+			Tray_Get_Box(!(Action.command&0x01),((AxisZ_Float_Disance+20)/Z_MPP),Goods);
 			if(Action.end_flag == 1)
 			{				
 				if(Axis_Y.InCtrl_Flag == 0&&(A_SENSOR ==1||B_SENSOR == 1))
@@ -109,7 +108,7 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 
 					Action.Get_Box_Stage++;
 					delay_ms(ActionDelay);						
-					delay_ms(ActionDelay);
+					
 				}
 			}
 		}
@@ -120,18 +119,25 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 				XZ_Run(Action.PlatX_Axis,Action.PlatZ_Axis+AxisZ_PutBoxFloat_Disance);
 				if(Action.end_flag == 1)//XZ运动结束进入下一个阶段
 				{
-					Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Fourth_Stage,0);//XZ运动动作结束，返回报文
-
 					
-					Action.Get_Box_Stage++;
-					delay_ms(ActionDelay);					
-					delay_ms(ActionDelay);
+					if(Action.GetBox_Cnt>2)
+					{
+						Action.GetBox_Cnt = 0;
+						Action.PutBox_Cnt = 0;
+						Action.Get_Box_Stage = 6;
+						Action.GetBox_Status_Change = 1;	
+						return;						
+					}
+					Privately_Back:
+					Action.Get_Box_Stage++;									
+					Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Fourth_Stage,0);//XZ运动动作结束，返回报文
+					delay_ms(ActionDelay);	
 				}
 			}
 		}
 		else if(Action.Get_Box_Stage == 4)//机械手放箱阶段
 		{
-			Tray_Put_Box(!(Action.tray_position>>1),((AxisZ_PutBoxFloat_Disance+6)/Z_MPP),Tray);
+			Tray_Put_Box(!(Action.tray_position>>1),((AxisZ_PutBoxFloat_Disance+10)/Z_MPP),Tray);
 			if(Action.end_flag == 1)
 			{
 				if(Axis_Y.InCtrl_Flag == 0&&(A_SENSOR ==1||B_SENSOR == 1))
@@ -167,6 +173,33 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 				delay_ms(ActionDelay);
 				delay_ms(ActionDelay);
 				delay_ms(ActionDelay);
+			}
+		}
+		else if(Action.Get_Box_Stage == 6)//偷偷复位阶段
+		{
+			if(Action.GetBox_Status_Change == 1)				
+			{
+				Action.GetBox_Status_Change = 0;
+				
+				DIR_X = X_DIR_FRONT;
+				Axis_X.Dir = X_DIR_FRONT;
+				Axis_X.NowPulse = 0;
+				Axis_X.Target_Pulse = 90;
+				Axis_X.InCtrl_Flag = 3;
+				delay_ms(200);
+				while(Axis_X.InCtrl_Flag)
+				delay_ms(200);
+				DIR_X = X_DIR_BACK;
+				Axis_X.Dir = X_DIR_BACK;
+				Axis_X.NowPulse = 0;
+				Axis_X.Target_Pulse = 50000;
+				Axis_X.InCtrl_Flag = 3;//归位模式
+			}
+			if(XYZ_To_Zero.X_Return_Flag == 1)
+			{
+				XYZ_To_Zero.X_Return_Flag = 0;
+				Action.Get_Box_Stage = 3;
+				goto Privately_Back;
 			}
 		}
 		else//所有动作结束置标志位
@@ -215,9 +248,10 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 			}
 			if(Action.end_flag == 1)
 			{
-				if(Action.PutBox_Cnt>6)
+				if(Action.PutBox_Cnt>2)
 				{
 					Action.PutBox_Cnt = 0;
+					Action.GetBox_Cnt = 0;
 					Action.PutBox_Status_Change = 1;
 					Action.Put_Box_Stage = 6;//进入偷偷复位状态机，没人知道
 					return;
@@ -287,7 +321,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 		else if(Action.Put_Box_Stage == 4)//托盘放箱阶段
 		{
 
-			Tray_Put_Box(!(Action.command&0x01),((AxisZ_Float_Disance+15)/Z_MPP),Goods);
+			Tray_Put_Box(!(Action.command&0x01),((AxisZ_Float_Disance+10)/Z_MPP),Goods);
 			if(Action.end_flag == 1)
 			{
 				
@@ -338,6 +372,16 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 			if(Action.PutBox_Status_Change ==1)
 			{
 				Action.PutBox_Status_Change = 0;
+				delay_ms(200);
+				DIR_X = X_DIR_FRONT;
+				Axis_X.Dir = X_DIR_FRONT;
+				Axis_X.NowPulse = 0;
+				Axis_X.Target_Pulse = 90;
+				Axis_X.InCtrl_Flag = 3;
+				
+				while(Axis_X.InCtrl_Flag)
+				delay_ms(200);
+				
 				DIR_X = X_DIR_BACK;
 				Axis_X.Dir = X_DIR_BACK;
 				Axis_X.NowPulse = 0;

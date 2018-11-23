@@ -436,6 +436,7 @@ void REC_UART2_Analyze(unsigned char right_num)//串口数析【SCREEN-TO-ACU】
 						case 0x15:  // z轴归位
 						{
 							Motor_BackToZero(AXIS_Z);
+							Z_ToZeroFlag = 1;
 						}break; 
 						case 0x16:   // x轴归位
 						{
@@ -446,6 +447,7 @@ void REC_UART2_Analyze(unsigned char right_num)//串口数析【SCREEN-TO-ACU】
 							XYZ_To_Zero.Start_Flag = 1;
 							XYZ_To_Zero.XYZ_Ret_Stage = 1;
 							XYZ_To_Zero.XYZRET_Status_Change = 0;
+							Z_ToZeroFlag = 1;
 						}break; 
 						case 0x18:  //停止
 						{
