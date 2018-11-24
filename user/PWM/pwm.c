@@ -661,6 +661,30 @@ void StepMotorCtrl_Pulse(u32 Target,u8 AXIS,bool Dir)//与目标差值，轴，方向
 	}
 }
 
+void Uniform_Speed_Advance(u32 Tar_Pluse,u8 Axis,bool dir)
+{
+	switch (Axis)
+	{
+		case AXIS_X:
+		{
+			DIR_X = dir;
+			Axis_X.Dir = dir;
+			Axis_X.NowPulse = 0;
+			Axis_X.Target_Pulse = Tar_Pluse;
+			Axis_X.InCtrl_Flag = 3;//????
+		}break;
+		case AXIS_Z:
+		{
+			DIR_Z = dir;
+			Axis_Z.Dir = dir;
+			Axis_Z.NowPulse = 0;
+			Axis_Z.Target_Pulse = Tar_Pluse;
+			Axis_Z.InCtrl_Flag = 3;//????
+		}break;
+	
+	}
+}
+
 void Motor_BackToZero(u8 Axis)
 {
 	if(Axis == AXIS_X)
@@ -868,7 +892,12 @@ void EXTI4_IRQHandler(void)//Z轴电机反馈
 			Axis_Z.InCtrl_Flag = 0;
 			Axis_Z.Coordinate = 0;
 			XYZ_To_Zero.Z_Return_Flag = 1;
-			//Auto_AdjustZ.Back_Zero_Flag = 1;
+			TIM_Cmd(TIM4, DISABLE);
+		}
+		if(Aid_Z_Sensor == 0&&Axis_Z.Dir == Z_DIR_BACK&&Aid_Z.Trigger ==ON)
+		{
+			Axis_Z.Coordinate = Aid_Z.Coordinate;
+			Axis_Z.InCtrl_Flag = 0;
 			TIM_Cmd(TIM4, DISABLE);
 		}
     if(Axis_Z.NowPulse >= Axis_Z.Target_Pulse)

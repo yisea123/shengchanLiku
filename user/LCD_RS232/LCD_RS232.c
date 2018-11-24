@@ -757,6 +757,8 @@ void All_I2C_Read(void)
 	    I2C_ReadByte(Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_CharData,4,130);
 	    I2C_ReadByte(Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_CharData,4,140);
 	    I2C_ReadByte(Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_CharData,4,150);
+			I2C_ReadByte(AidZ_I2c.CoordinateCharData,4,200);
+
 }
 
 unsigned char HexToBcd(unsigned int Hex)

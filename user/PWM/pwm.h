@@ -206,6 +206,8 @@ void Motor_BackToZero(u8 Axis);
 void Motor_Y_BackToLeft(void);
 void Tray_Limit_Contr(void);
 void Axis_Ultra_Limit(void);
+void Uniform_Speed_Advance(u32 Tar_Pluse,u8 Axis,bool dir);
+
 u32 PWMCtrl_ARRCount(u32 pcs, float Fre);
 
 

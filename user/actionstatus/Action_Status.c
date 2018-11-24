@@ -6,6 +6,15 @@ u32 Plat_Axis_X;
 u32 AxisZ_UpDown_Pluse;
 u32 AxisZ_UpDownMore_Pluse;
 bool Z_ToZeroFlag = 0;
+Typedef_AIDZ AidZ_I2c;
+TYPEDEF_AID_Z Aid_Z = 
+{
+	.Start_Flag = 0,
+	.Status_Change = 0,
+	.Stage =1,
+	.Trigger = 0,
+	.Coordinate = 0
+};
 TYPEDEF_BACKZERO XYZ_To_Zero=
 {
 	.XYZRET_Status_Change = 0,//XYZRET_Status_Change状态改变标志位
@@ -79,7 +88,7 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 					LED_GRE = OFF;
 					LED_YEL = OFF;
 					Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Error,0);//返回报警信息
-					Action.Get_Box_Stage = 6;
+					Action.Get_Box_Stage = 8;
 					return;
 				}
 				if(Action.tray_position == Keep)//托盘属性为无，则跳转到结束阶段
@@ -87,7 +96,7 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 					Beep(50,50,5);
 					Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Third_Stage,0);//托盘拿箱结束返回报文
 					
-					Action.Get_Box_Stage = 5;
+					Action.Get_Box_Stage = 8;
 				}
 				else//托盘拿箱动作结束，进入下一个阶段
 				{
@@ -161,43 +170,42 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 			Tray_Put_Box(!(Action.command&0x01),AxisZ_UpDown_Pluse,Goods);
 			if(Action.end_flag == 1)
 			{
-				Action.Get_Box_Stage++;
+				Action.Get_Box_Stage = 8;
 				delay_ms(ActionDelay);				
 				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
-				delay_ms(ActionDelay);
+				return;
 			}
 		}
 		else if(Action.Get_Box_Stage == 6)//偷偷复位阶段
 		{
 			if(Action.GetBox_Status_Change == 1)				
 			{
-				Action.GetBox_Status_Change = 0;
-				
-				DIR_X = X_DIR_FRONT;
-				Axis_X.Dir = X_DIR_FRONT;
-				Axis_X.NowPulse = 0;
-				Axis_X.Target_Pulse = 90;
-				Axis_X.InCtrl_Flag = 3;
+				Action.GetBox_Status_Change = 0;				
+				Uniform_Speed_Advance(90,AXIS_X,X_DIR_FRONT);	
+				Uniform_Speed_Advance((90/Z_MPP),AXIS_Z,Z_DIR_BACK);Aid_Z.Trigger =ON;				
 				delay_ms(200);
 				while(Axis_X.InCtrl_Flag)
 				delay_ms(200);
-				DIR_X = X_DIR_BACK;
-				Axis_X.Dir = X_DIR_BACK;
-				Axis_X.NowPulse = 0;
-				Axis_X.Target_Pulse = 50000;
-				Axis_X.InCtrl_Flag = 3;//归位模式
+				Uniform_Speed_Advance(50000,AXIS_X,X_DIR_BACK);		
 			}
-			if(XYZ_To_Zero.X_Return_Flag == 1)
+			if(XYZ_To_Zero.X_Return_Flag == 1&& Axis_Z.InCtrl_Flag ==0)
 			{
 				XYZ_To_Zero.X_Return_Flag = 0;
+				Action.Get_Box_Stage = 7;
+				Action.GetBox_Status_Change = 1;
+				return;
+				//goto Privately_Back;
+			}
+		}
+		else if(Action.Get_Box_Stage == 7)//偷偷复位阶段
+		{
+			if(Action.GetBox_Status_Change ==1)
+			{
+				Action.GetBox_Status_Change = 0;
+				XZ_Run(Action.PlatX_Axis,Action.PlatZ_Axis+AxisZ_PutBoxFloat_Disance);
+			}
+			if(Action.end_flag == 1)
+			{
 				Action.Get_Box_Stage = 3;
 				goto Privately_Back;
 			}
@@ -276,7 +284,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 							LED_GRE = OFF;
 							LED_YEL = OFF;
 							Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Error,0);//返回报警信息
-							Action.Put_Box_Stage = 7;
+							Action.Put_Box_Stage = 8;
 							return;
 						}
 						if(Length_High_LimCtl())//长高限位
@@ -332,7 +340,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 					LED_GRE = OFF;
 					LED_YEL = OFF;
 					Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Error,0);//返回报警信息
-					Action.Put_Box_Stage = 7;
+					Action.Put_Box_Stage = 8;
 					return;
 				}
 						
@@ -357,7 +365,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 			Tray_Put_Box(!(Action.tray_position>>1),AxisZ_UpDownMore_Pluse,Goods);
 			if(Action.end_flag == 1)
 			{
-				Action.Put_Box_Stage+=2;
+				Action.Put_Box_Stage+=3;
 				delay_ms(ActionDelay);
 				
 				delay_ms(ActionDelay);
@@ -372,26 +380,37 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 			if(Action.PutBox_Status_Change ==1)
 			{
 				Action.PutBox_Status_Change = 0;
-				delay_ms(200);
-				DIR_X = X_DIR_FRONT;
-				Axis_X.Dir = X_DIR_FRONT;
-				Axis_X.NowPulse = 0;
-				Axis_X.Target_Pulse = 90;
-				Axis_X.InCtrl_Flag = 3;
-				
+				/************xz轴归零动作*************/
+				delay_ms(200);				
+				Uniform_Speed_Advance(90,AXIS_X,X_DIR_FRONT);				
+				Uniform_Speed_Advance((90/Z_MPP),AXIS_Z,Z_DIR_BACK);Aid_Z.Trigger =ON;
 				while(Axis_X.InCtrl_Flag)
-				delay_ms(200);
+				delay_ms(200);				
+				Uniform_Speed_Advance(90,AXIS_X,X_DIR_FRONT);				
+				/************xz轴归零动作*************/
 				
-				DIR_X = X_DIR_BACK;
-				Axis_X.Dir = X_DIR_BACK;
-				Axis_X.NowPulse = 0;
-				Axis_X.Target_Pulse = 50000;
-				Axis_X.InCtrl_Flag = 3;//归位模式
+
 			}
-			if(XYZ_To_Zero.X_Return_Flag == 1)
+			if(XYZ_To_Zero.X_Return_Flag == 1&&Axis_Z.InCtrl_Flag ==0)//xz轴归为完成
 			{
+				Aid_Z.Trigger = OFF;
 				XYZ_To_Zero.X_Return_Flag = 0;
-				Action.Put_Box_Stage = 1;
+				Action.Put_Box_Stage = 7;
+				Action.PutBox_Status_Change = 1;
+				return;
+				
+			}
+		}
+		else if(Action.Put_Box_Stage == 7)//偷偷复位状态机
+		{
+			if(Action.PutBox_Status_Change == 1)
+			{
+				Action.PutBox_Status_Change = 0;
+				XZ_Run(Action.PlatX_Axis,Action.PlatZ_Axis-AxisZ_Float_Disance);
+			}
+			if(Action.end_flag == 1)
+			{
+				Action.Put_Box_Stage = 1;	
 				goto Privately_Back;
 			}
 		}
@@ -1069,6 +1088,11 @@ void Action_Stop(void)
 	XYZ_To_Zero.XYZ_Ret_Stage = 1;
 	XYZ_To_Zero.XYZRET_Status_Change = 0;
 	XYZ_To_Zero.Start_Flag = 0;
+	
+		Aid_Z.Status_Change = 1;
+		Aid_Z.Start_Flag = 0;	
+		Aid_Z.Stage =1;
+
 
 }
 
@@ -1102,11 +1126,103 @@ bool Length_High_LimCtl(void)
 //	bool ydir=0;
 //	ydir = A_SENSOR ==0?(B_SENSOR ==1?1:0):(B_SENSOR ==0?0:1);
 //}
+
 void Auto_Rest()
 {
 	XYZ_To_Zero.Start_Flag = 1;
 	XYZ_To_Zero.Over_Flag = 0;
 }
+/**
+  * @brief  Z轴辅助坐标定位
+  * @param  
+* @retval 
+  */
+void Axis_Z_Aid_Coordinate(void)
+{
+	if(Aid_Z.Start_Flag)
+	{
+		switch (Aid_Z.Stage)
+		{
+			case 1://Z轴上升阶段
+		{
+			if(Aid_Z.Status_Change ==1)
+			{
+				Aid_Z.Status_Change =0;		
+				Uniform_Speed_Advance(Z_ZeroUp_Pluse,AXIS_Z,Z_DIR_FRONT);
+			}
+			if(Axis_Z.InCtrl_Flag==0)
+			{
+				Aid_Z.Stage++;
+				Aid_Z.Status_Change =1;
+			}
+		}break;
+			case 2://Z轴归零阶段
+		{
+			if(Aid_Z.Status_Change ==1)
+			{
+				Aid_Z.Status_Change = 0;			
+				Uniform_Speed_Advance(50000,AXIS_Z,Z_DIR_BACK);
+			}
+			if(Axis_Z.InCtrl_Flag==0)
+			{
+				Aid_Z.Stage++;
+				Aid_Z.Status_Change =1;
+			}
+		}break;
+			case 3://Z轴上升触发辅助定位阶段
+		{
+			if(Aid_Z.Status_Change ==1)
+			{
+				Aid_Z.Status_Change = 0;
+				Uniform_Speed_Advance(50000,AXIS_Z,Z_DIR_FRONT);
+			}
+			if(Aid_Z_Sensor == 0)
+			{
+				Aid_Z.Stage++;
+				Aid_Z.Status_Change =1;
+			}
+		}break;
+			case 4://Z轴下降触发辅助定位
+		{
+			if(Aid_Z.Status_Change ==1)
+			{
+				Aid_Z.Status_Change = 0;
+				Axis_Z.NowPulse = Axis_Z.Target_Pulse - (50/Z_MPP);
+				//Uniform_Speed_Advance(50000,AXIS_Z,Z_DIR_BACK);
+			}
+			if(Axis_Z.InCtrl_Flag == 0)
+			{
+				Aid_Z.Stage++;
+				Aid_Z.Status_Change =1;
+				
+				
+			}
+		}break;
+			case 5:
+		{
+			if(Aid_Z.Status_Change ==1)
+			{
+				Aid_Z.Status_Change = 0;
+				Uniform_Speed_Advance(50000,AXIS_Z,Z_DIR_BACK);Aid_Z.Trigger =ON;
+			}
+			if(Axis_Z.InCtrl_Flag ==0)
+			{
+				Axis_Z.InCtrl_Flag = 0;
+				TIM_Cmd(TIM4, DISABLE);
+				AidZ_I2c.Coordinate = Axis_Z.Coordinate;
+				I2C_BufferWrite(AidZ_I2c.CoordinateCharData,4,200);//将辅助定位坐标写入EEPROM
+				Aid_Z.Coordinate = Axis_Z.Coordinate;
+				
+				Aid_Z.Stage = 1;
+				Aid_Z.Status_Change = 1;
+				Aid_Z.Start_Flag = 0;
+				Beep(50,50,1);
+			}
+		}break;
+		}
+	}
+}
+
 char Axis_X_Demarcate(u8 X_X,u8 Z_Z,u8 Tray_Position)//被逼无奈迫于压力写出来的，一个手动标定坐标
 {
 		switch (Tray_Position)//托盘属性

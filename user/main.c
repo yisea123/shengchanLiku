@@ -10,7 +10,7 @@ int main(void)
 	{
 		Axis_Ultra_Limit();//XZ轴坐标限位
 		Tray_Limit_Contr();//托盘限位
-		
+		Axis_Z_Aid_Coordinate();//辅助定位坐标标定
 		if(Timer_1ms_flag == 1)//1ms轮询，执行需要定时的功能   发送数据/模拟控制
 		{
 			//asdasd();
@@ -21,6 +21,7 @@ int main(void)
 			SURE_REC_UART2_Analyze();     //迪文屏串口解析
 			Get_Box(Action.Target_X,Action.Target_Z);//取箱阶段轮询
 			Put_Box(Action.Target_X,Action.Target_Z);//放箱阶段轮询
+			
 			if(Uart3[Cache_Cnt].RecError ==1)//接收数据错误，丢弃本次数据，并关闭串口5毫秒
 			{
 				Beep(50,50,3);

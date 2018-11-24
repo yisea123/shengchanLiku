@@ -41,7 +41,7 @@ void Sys_Init(void)
 	Y_RightLim_LessPluse = Change_Y_RightLim_LessPluse.Y_RightLim_LessPluse_Data;
 	AxisZ_UpDown_Pluse = Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_Data;
 	AxisZ_UpDownMore_Pluse = Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_Data;
-	
+	Aid_Z.Coordinate = AidZ_I2c.Coordinate;
 	Beep(50,50,1);
 	
 }

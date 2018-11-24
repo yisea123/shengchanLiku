@@ -40,6 +40,9 @@ extern u32 First_Goods_Height;
 #define 	LED_YEL  PCout(3)
 #define 	ON	1
 #define		OFF 0
+
+/********************************/
+#define Aid_Z_Sensor PEin(1)
 typedef struct 
 {
 	bool XYZRET_Status_Change;
@@ -50,7 +53,25 @@ typedef struct
 	bool Tray_Reset_Flag;
 	bool Z_Return_Flag;
 }TYPEDEF_BACKZERO;
+
+typedef struct
+{
+	bool Start_Flag;
+	bool Status_Change;
+	bool Trigger;
+	u8 Stage;
+	u32 Coordinate;
+}TYPEDEF_AID_Z;
+
+typedef union
+{
+	u32 Coordinate;
+	u8 CoordinateCharData[4];
+}Typedef_AIDZ;
+extern Typedef_AIDZ AidZ_I2c;
+extern TYPEDEF_AID_Z Aid_Z;
 extern TYPEDEF_BACKZERO XYZ_To_Zero;
+
 extern bool Z_ToZeroFlag;
 void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm);
 void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm);
@@ -68,4 +89,5 @@ bool Length_High_LimCtl(void);
 void Auto_Rest(void);
 void XZ_Run(u16 AXIS_X_Mm,u16 AXIS_Z_Mm);
 char Axis_X_Demarcate(u8 X_X,u8 Z_Z,u8 Tray_Position);
+void Axis_Z_Aid_Coordinate(void);
 #endif
