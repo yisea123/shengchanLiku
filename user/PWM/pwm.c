@@ -412,9 +412,8 @@ void Axis_Ultra_Limit()
 		}
 		
 	}
-	
-	
-			if(x_stop_flag == 1)
+
+			if(x_stop_flag == 1)//X轴前限位触发，开始回弹
 		{
 			x_stop_flag = 0;
 			DelayTimes_ms = 500;
@@ -660,7 +659,11 @@ void StepMotorCtrl_Pulse(u32 Target,u8 AXIS,bool Dir)//与目标差值，轴，方向
     }
 	}
 }
-
+/**
+  * @brief  三轴匀速控制
+  * @param  脉冲数，轴，方向
+  * @retval 无
+  */
 void Uniform_Speed_Advance(u32 Tar_Pluse,u8 Axis,bool dir)
 {
 	switch (Axis)
@@ -680,6 +683,14 @@ void Uniform_Speed_Advance(u32 Tar_Pluse,u8 Axis,bool dir)
 			Axis_Z.NowPulse = 0;
 			Axis_Z.Target_Pulse = Tar_Pluse;
 			Axis_Z.InCtrl_Flag = 3;//????
+		}break;
+		case AXIS_Y:
+		{
+			DIR_Y = dir;
+			Axis_Y.Dir = dir;
+			Axis_Y.Target_Pulse = Tar_Pluse;
+			Axis_Y.NowPulse = 0;
+			Axis_Y.InCtrl_Flag = 3;//归位模式
 		}break;
 	
 	}
@@ -886,7 +897,7 @@ void EXTI4_IRQHandler(void)//Z轴电机反馈
 		{
 			Axis_Z.Coordinate--;
 		}
-		if(Axis_Z_Down_Sensor == 0&&Axis_Z.Dir == Z_DIR_BACK&&Z_ToZeroFlag == 1)
+		if(Axis_Z_Down_Sensor == 0&&Axis_Z.Dir == Z_DIR_BACK&&Z_ToZeroFlag == 1)//下限位开启
 		{			
 			Z_ToZeroFlag = 0;
 			Axis_Z.InCtrl_Flag = 0;
@@ -894,9 +905,10 @@ void EXTI4_IRQHandler(void)//Z轴电机反馈
 			XYZ_To_Zero.Z_Return_Flag = 1;
 			TIM_Cmd(TIM4, DISABLE);
 		}
-		if(Aid_Z_Sensor == 0&&Axis_Z.Dir == Z_DIR_BACK&&Aid_Z.Trigger ==ON)
+		if(Aid_Z_Sensor == 0&&Axis_Z.Dir == Z_DIR_BACK&&Aid_Z.Trigger ==ON)//使用辅助传感器限位
 		{
-			Axis_Z.Coordinate = Aid_Z.Coordinate;
+			temp_Z_Coordinate = Axis_Z.Coordinate;
+			Axis_Z.Coordinate = Aid_Z.Coordinate;//辅助坐标传值
 			Axis_Z.InCtrl_Flag = 0;
 			TIM_Cmd(TIM4, DISABLE);
 		}

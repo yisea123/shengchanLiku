@@ -8,7 +8,7 @@
 //#define Plat_Axis_X									10//托架X轴坐标单位Mm
 extern u32 Plat_Axis_Z;
 extern u32 Plat_Axis_X;
-#define AxisZ_Float_Disance				10//货架浮动距离，单位mm
+#define AxisZ_Float_Disance				20//货架浮动距离，单位mm
 #define AxisZ_PutBoxFloat_Disance 50		//取箱回来时，托盘位于托架上方的距离单位Mm
 //#define AxisZ_UpDown_Pluse				110//托盘上升下降脉冲数
 //#define AxisZ_UpDownMore_Pluse		190//托盘上升下降脉冲数
@@ -70,8 +70,9 @@ typedef union
 }Typedef_AIDZ;
 extern Typedef_AIDZ AidZ_I2c;
 extern TYPEDEF_AID_Z Aid_Z;
+extern u32 temp_Z_Coordinate;
 extern TYPEDEF_BACKZERO XYZ_To_Zero;
-
+extern u32 ZLim_Coordinate;
 extern bool Z_ToZeroFlag;
 void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm);
 void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm);
@@ -90,4 +91,5 @@ void Auto_Rest(void);
 void XZ_Run(u16 AXIS_X_Mm,u16 AXIS_Z_Mm);
 char Axis_X_Demarcate(u8 X_X,u8 Z_Z,u8 Tray_Position);
 void Axis_Z_Aid_Coordinate(void);
+void AidZLocatEmg(void);
 #endif

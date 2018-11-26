@@ -630,6 +630,36 @@
           <WinNumber>2</WinNumber>
           <ItemText>Z_MPP</ItemText>
         </Ww>
+        <Ww>
+          <count>51</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>X_Zero_Pluse,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>52</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>Z_MPP</ItemText>
+        </Ww>
+        <Ww>
+          <count>53</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>Aid_Z.Coordinate,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>54</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>Axis_Z.Coordinate,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>55</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>temp_Z_Coordinate,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>56</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>ZLim_Coordinate,0x0A</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>

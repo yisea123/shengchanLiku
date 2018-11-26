@@ -29,6 +29,10 @@ void GPIO_InPut_Init(void)		//传感器端口初始化
 	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_3 | GPIO_Pin_15 | GPIO_Pin_11 | GPIO_Pin_6 | GPIO_Pin_9; //立库扩展板，PE:3X轴后限位，PE15:Z轴极限位，PE11:A面传感器,PE6:B面传感器
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 
  	GPIO_Init(GPIOE, &GPIO_InitStructure);	
+	
+	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_3 | GPIO_Pin_1 | GPIO_Pin_11 | GPIO_Pin_7 | GPIO_Pin_9; //立库扩展板，长管限位
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 
+ 	GPIO_Init(GPIOE, &GPIO_InitStructure);
 }
 
 

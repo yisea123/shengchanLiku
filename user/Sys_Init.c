@@ -42,6 +42,8 @@ void Sys_Init(void)
 	AxisZ_UpDown_Pluse = Change_AxisZ_UpDown_Pluse.AxisZ_UpDown_Pluse_Data;
 	AxisZ_UpDownMore_Pluse = Change_AxisZ_UpDownMore_Pluse.AxisZ_UpDownMore_Pluse_Data;
 	Aid_Z.Coordinate = AidZ_I2c.Coordinate;
+	
+	ZLim_Coordinate = (Aid_Z.Coordinate-8/Z_MPP);//计算Z轴辅助定位失效时的应急坐标
 	Beep(50,50,1);
 	
 }
