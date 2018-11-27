@@ -20,7 +20,7 @@ extern u32 AxisZ_UpDownMore_Pluse;
 #define Goods		0//托盘当前处于货物处	
 
 #define Tray_AutoReset_Pulse			40
-#define ActionDelay		500//每个动作结束的延时时间
+#define ActionDelay		200//每个动作结束的延时时间
 
 //#define First_Goods_Height 30//第一层货架相对于托盘的高度，单位Mm
 extern u32 First_Goods_Height;

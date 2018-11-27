@@ -317,6 +317,8 @@ void Net_Analysis(void)
 							Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Successed,0);//接收消息，返回报文
 							XYZ_To_Zero.Start_Flag = 1;
 							XYZ_To_Zero.Over_Flag = 0;
+							XYZ_To_Zero.XYZ_Ret_Stage = 1;
+							XYZ_To_Zero.XYZRET_Status_Change = 1;
 							Z_ToZeroFlag = 1;
 							Beep(50,50,1);
 						}

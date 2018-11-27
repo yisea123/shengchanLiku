@@ -446,7 +446,7 @@ void REC_UART2_Analyze(unsigned char right_num)//´®¿ÚÊýÎö¡¾SCREEN-TO-ACU¡¿
 						{
 							XYZ_To_Zero.Start_Flag = 1;
 							XYZ_To_Zero.XYZ_Ret_Stage = 1;
-							XYZ_To_Zero.XYZRET_Status_Change = 0;
+							XYZ_To_Zero.XYZRET_Status_Change = 1;
 							Z_ToZeroFlag = 1;
 						}break; 
 						case 0x18:  //Í£Ö¹

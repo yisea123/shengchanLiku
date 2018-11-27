@@ -19,7 +19,7 @@ TYPEDEF_AID_Z Aid_Z =
 };
 TYPEDEF_BACKZERO XYZ_To_Zero=
 {
-	.XYZRET_Status_Change = 0,//XYZRET_Status_Change状态改变标志位
+	.XYZRET_Status_Change = 1,//XYZRET_Status_Change状态改变标志位
 	.XYZ_Ret_Stage 				= 1,//XYZ_Ret_Stage阶段跳转
 	.Over_Flag 						= 0,//Over_Flag复位结束，返回信息给上位机
 	.Start_Flag 	 				= 0,//Start_Flag复位开始标志位
@@ -78,7 +78,7 @@ void Get_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//取箱或者到达
 		}
 		else if(Action.Get_Box_Stage == 2)//机械手拿箱阶段
 		{
-			Tray_Get_Box(!(Action.command&0x01),((AxisZ_Float_Disance+20)/Z_MPP),Goods);
+			Tray_Get_Box(!(Action.command&0x01),((AxisZ_Float_Disance+23)/Z_MPP),Goods);
 			if(Action.end_flag == 1)
 			{				
 				if(Axis_Y.InCtrl_Flag == 0&&(A_SENSOR ==1||B_SENSOR == 1))
@@ -326,7 +326,7 @@ void Put_Box(u16 AXIS_X_Mm,u16 AXIS_Z_Mm)//放箱
 		}
 		else if(Action.Put_Box_Stage == 5)//托盘放箱阶段
 		{
-			Tray_Put_Box(!(Action.command&0x01),((AxisZ_Float_Disance+15)/Z_MPP),Goods);
+			Tray_Put_Box(!(Action.command&0x01),((AxisZ_Float_Disance+20)/Z_MPP),Goods);
 			if(Action.end_flag == 1)
 			{				
 				if(Axis_Y.InCtrl_Flag == 0&&(A_SENSOR ==1||B_SENSOR == 1))//托盘未处于零位，报警
@@ -799,9 +799,9 @@ void XYZ_BackZero()
 	{
 		if(XYZ_To_Zero.XYZ_Ret_Stage == 1)//自动复位
 		{
-			if(XYZ_To_Zero.XYZRET_Status_Change == 0)
+			if(XYZ_To_Zero.XYZRET_Status_Change == 1)
 		{
-				XYZ_To_Zero.XYZRET_Status_Change =1;
+				XYZ_To_Zero.XYZRET_Status_Change =0;
 			if(A_SENSOR == 1&&B_SENSOR == 0)//托盘位于右边，往左复位
 			{				
 				Uniform_Speed_Advance(2500,AXIS_Y,Y_DIR_LEFT);
@@ -820,13 +820,13 @@ void XYZ_BackZero()
 			if(Axis_Y.InCtrl_Flag == 0)
 			{
 				XYZ_To_Zero.XYZ_Ret_Stage++;
-				XYZ_To_Zero.XYZRET_Status_Change = 0;
+				XYZ_To_Zero.XYZRET_Status_Change = 1;
 				delay_ms(500);
 			}
 		}
 		else if(XYZ_To_Zero.XYZ_Ret_Stage == 2)//Z轴复位过程
 		{
-			if(XYZ_To_Zero.XYZRET_Status_Change == 0)
+			if(XYZ_To_Zero.XYZRET_Status_Change == 1)
 			{
 				if(A_SENSOR == 1||B_SENSOR == 1)//动作前判断托盘是否位于零位，否则不执行动作
 				{
@@ -836,28 +836,29 @@ void XYZ_BackZero()
 				if((Axis_Z_Up_Sensor == 0)||(Axis_Z_Up_Sensor == 1&&Axis_Z_Down_Sensor == 1))//已经处于顶部则向下归位
 				{
 					XYZ_To_Zero.XYZ_Ret_Stage = 3;
-					XYZ_To_Zero.XYZRET_Status_Change = 0;
+					XYZ_To_Zero.XYZRET_Status_Change = 1;
 					return ;
 				}
 				if(Axis_Z_Down_Sensor == 0)//托盘处于下限位位置，需向上归位再向下
 				{
-					XYZ_To_Zero.XYZRET_Status_Change = 1;
+					XYZ_To_Zero.XYZRET_Status_Change = 0;
 					Uniform_Speed_Advance(Z_ZeroUp_Pluse,AXIS_Z,Z_DIR_FRONT);
 				}
 			}
 			if(Axis_Z.InCtrl_Flag == 0)
 			{
 				XYZ_To_Zero.XYZ_Ret_Stage++;
-				XYZ_To_Zero.XYZRET_Status_Change = 0;
+				XYZ_To_Zero.XYZRET_Status_Change = 1;
 				delay_ms(500);
 			}
 		}
 		else if(XYZ_To_Zero.XYZ_Ret_Stage == 3)//Z轴下降，X轴回零过程
 		{
-			if(XYZ_To_Zero.XYZRET_Status_Change == 0)
+			if(XYZ_To_Zero.XYZRET_Status_Change == 1)
 			{
-				XYZ_To_Zero.XYZRET_Status_Change = 1;
+				XYZ_To_Zero.XYZRET_Status_Change = 0;
 				/*************Z轴下降归位********************/
+				Aid_Z.Trigger = OFF;
 				Uniform_Speed_Advance(50000,AXIS_Z,Z_DIR_BACK);
 				Z_ToZeroFlag = 1;
 				/*************X轴归位***********************/
@@ -867,36 +868,36 @@ void XYZ_BackZero()
 			{
 				XYZ_To_Zero.X_Return_Flag = 0;
 				XYZ_To_Zero.XYZ_Ret_Stage++;
-				XYZ_To_Zero.XYZRET_Status_Change = 0;
+				XYZ_To_Zero.XYZRET_Status_Change = 1;
 				delay_ms(500);
 			}
 		}
 		else if(XYZ_To_Zero.XYZ_Ret_Stage == 4)//Y轴左复位过程，消除托盘机械误差
 		{
-			if(XYZ_To_Zero.XYZRET_Status_Change == 0)
+			if(XYZ_To_Zero.XYZRET_Status_Change == 1)
 			{
-				XYZ_To_Zero.XYZRET_Status_Change =1;
+				XYZ_To_Zero.XYZRET_Status_Change =0;
 				Uniform_Speed_Advance(500,AXIS_Y,Y_DIR_LEFT);
 			}
 			if(Axis_Y.InCtrl_Flag == 0)
 			{
 				XYZ_To_Zero.XYZ_Ret_Stage++;
-				XYZ_To_Zero.XYZRET_Status_Change = 0;
+				XYZ_To_Zero.XYZRET_Status_Change = 1;
 				delay_ms(500);
 			}
 		}
 		else if(XYZ_To_Zero.XYZ_Ret_Stage == 5)//Y轴右复位过程，消除托盘机械误差
 		{
-			if(XYZ_To_Zero.XYZRET_Status_Change == 0)
+			if(XYZ_To_Zero.XYZRET_Status_Change == 1)
 			{
-				XYZ_To_Zero.XYZRET_Status_Change =1;
+				XYZ_To_Zero.XYZRET_Status_Change =0;
 				Uniform_Speed_Advance(1000,AXIS_Y,Y_DIR_RIGHT);
 			}
 			if(Axis_Y.InCtrl_Flag == 0)
 			{
 				Last_AxisY_Dir = Y_DIR_RIGHT;//记录托盘运动方向
 				XYZ_To_Zero.XYZ_Ret_Stage++;
-				XYZ_To_Zero.XYZRET_Status_Change = 0;
+				XYZ_To_Zero.XYZRET_Status_Change = 1;
 				delay_ms(500);
 			}
 		}
@@ -904,7 +905,7 @@ void XYZ_BackZero()
 		{
 			XYZ_To_Zero.Over_Flag = 1;
 			XYZ_To_Zero.XYZ_Ret_Stage = 1;
-			XYZ_To_Zero.XYZRET_Status_Change = 0;
+			XYZ_To_Zero.XYZRET_Status_Change = 1;
 			XYZ_To_Zero.Start_Flag = 0;
 			Uart_Send(0,CMD_CTRL_XZ,Local_Ip,0x61,Fifth_Stage,0);//XZ运动动作结束，返回报文
 			Beep(50,50,1);
@@ -1036,10 +1037,10 @@ void Action_Stop(void)
 	Action.end_flag = 0;
 
 	XYZ_To_Zero.XYZ_Ret_Stage = 1;
-	XYZ_To_Zero.XYZRET_Status_Change = 0;
+	XYZ_To_Zero.XYZRET_Status_Change = 1;
 	XYZ_To_Zero.Start_Flag = 0;
 	
-		Aid_Z.Trigger =OFF;
+		Aid_Z.Trigger = OFF;
 		Aid_Z.Status_Change = 1;
 		Aid_Z.Start_Flag = 0;	
 		Aid_Z.Stage =1;

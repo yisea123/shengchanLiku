@@ -40,8 +40,8 @@ extern TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 #define Z_Acc_Time_H	800//高速模式加速时间
 
 #define X_Acc_Time_L  200//低速模式加速时间
-#define X_Acc_Time_M  1000//中速模式加速时间
-#define X_Acc_Time_H	1200//高速模式加速时间
+#define X_Acc_Time_M  500//中速模式加速时间
+#define X_Acc_Time_H	1000//高速模式加速时间
 
 /*****************************X轴控制参数**************************/
 #define X_DIV         					240     //驱动器设置细分
@@ -52,6 +52,10 @@ extern TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 extern double X_MPP;
 #define X_DIR_BACK							0
 #define X_DIR_FRONT							1
+//超高速
+#define X_SPEED_FREQ_SH					2600
+#define X_SPHIGHSPEED_DISTANCE  3000
+#define X_HORL_PULSE_VALVE_SH		(X_SPHIGHSPEED_DISTANCE/X_MPP)
 //高速
 #define X_SPEED_FREQ_H  				2300   //高速频率 
 #define X_HIGHSPEED_DISTANCE		2000  //高速前进距离阈值单位Mm
@@ -78,6 +82,7 @@ extern double Z_MPP;
 #define Z_DIR_FRONT							1
 #define Z_DIR_BACK							0
 #define Z_ZeroUp_Pluse					200//Z轴归位上升脉冲数
+
 
 //高速
 #define Z_SPEED_FREQ_H  				2000  	//高速频率  

@@ -539,6 +539,25 @@ void StepMotorCtrl_Pulse(u32 Target,u8 AXIS,bool Dir)//与目标差值，轴，方向
         Axis_X.InCtrl_Flag = 2;//高速模式
         Axis_X.SpeedChange_Stage = 1;
       }
+			/*else
+			{
+				//设置加减速参数，分别为目标频率，加加速度，匀加速加速度
+				Axis_X.Target_Fre = X_SPEED_FREQ_SH;
+				Axis_X.Acc_Speed  = (float)(4*Axis_X.Target_Fre-4*X_STAR_FREQ)/(2*X_Acc_Time_H);
+				Axis_X.Jerk_Speed = (float)(8*Axis_X.Target_Fre-8*X_STAR_FREQ)/(2*X_Acc_Time_H*X_Acc_Time_H);
+				
+        Axis_X.NowFreq = X_STAR_FREQ;    //获得初始频率，以进入外部中断
+        Axis_X.NowPulse = 0;    //清零当前脉冲数
+        Axis_X.Timer_Cnt = 0;   //清零当前计时器
+        for(i=0;i<7;i++)        //清零当前时间节点，脉冲节点
+        {
+          Axis_X.PulsePoint[i] = 0;
+          Axis_X.TimerPoint[i] = 0;
+          Axis_X.FreqPoint[i] = 0;
+        }
+        Axis_X.InCtrl_Flag = 2;//高速模式
+        Axis_X.SpeedChange_Stage = 1;
+			}*/
     }
   }
   else if(AXIS == AXIS_Z)
@@ -613,7 +632,7 @@ void StepMotorCtrl_Pulse(u32 Target,u8 AXIS,bool Dir)//与目标差值，轴，方向
 			}
 			
 			//判断是否为高速模式
-			else
+			else 
 			{
 				Axis_Z.Target_Fre = Z_SPEED_FREQ_H;
 				Axis_Z.Acc_Speed  = (float)(4*Axis_Z.Target_Fre-4*Z_STAR_FREQ)/(2*Z_Acc_Time_H);
